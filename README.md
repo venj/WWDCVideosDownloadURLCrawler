@@ -16,5 +16,5 @@ when you see "done!", the work had be done.
 
 #URL of videos
 https://gist.github.com/cielpy/b64767f66fdb914a08e9
-https://gist.github.com/cielpy/a6fa3baf4b5e9ef82025 (PDFs) 
+https://gist.github.com/venj/a6fa3baf4b5e9ef82025 (PDFs) 
 
