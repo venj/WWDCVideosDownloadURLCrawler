@@ -33,10 +33,16 @@ class wwdc:
         html = self.getPage(HTMLURL)
         soup = BeautifulSoup(html)
         downloadHTML = soup.findAll("ul", attrs={"class":"smaller text-right lighter no-margin-top"})
-        SDDownloadURL = downloadHTML[0].findAll('li',attrs={"class":"inline-block"})[1].a['href']
-        HDDownloadURL = downloadHTML[0].findAll('li',attrs={"class":"inline-block"})[2].a['href']
+        linksBlock = downloadHTML[0].findAll('li',attrs={"class":"inline-block"})
+        SDDownloadURL = linksBlock[1].a['href']
+        HDDownloadURL = linksBlock[2].a['href']
+        try:
+            PDFDownloadURL = linksBlock[3].a['href']
+        except:
+            PDFDownloadURL = ""
+            print "No pdf."
 
-        return (SDDownloadURL, HDDownloadURL)
+        return (SDDownloadURL, HDDownloadURL, PDFDownloadURL)
 
 
     def start(self):
@@ -44,11 +50,14 @@ class wwdc:
         videoHTMLURLList = self.getAllVideo(html)
         self.sdFile = open("sd.txt", "w+")
         self.hdFile = open("hd.txt", "w+")
+        self.pdfFile = open("pdf.txt", "w+")
         for HTMLURL in videoHTMLURLList:
             URLs = self.getDownloadURL(HTMLURL)
             print URLs[0]
             self.sdFile.write(URLs[0] + "\n")
             self.hdFile.write(URLs[1] + "\n")
+            if len(URLs[2]) > 0:
+                self.pdfFile.write(URLs[2] + "\n")
         print "Done!"
 
 wwdc = wwdc()
